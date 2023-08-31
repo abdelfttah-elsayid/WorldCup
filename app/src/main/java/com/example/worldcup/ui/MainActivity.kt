@@ -16,20 +16,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun setup() {
         parseFile()
+        val adapter = MatchAdapter(DataManger.matches)
+        binding.recyclerMatch.adapter = adapter
     }
 
     override fun addCallbacks() {
-            binding.apply {
-                arrowNext.setOnClickListener{
-                 val match =   DataManger.getNextMatch()
-                bindMatch(match)
-                }
-                arrowPrevious.setOnClickListener{
-                    val match = DataManger.getPreviousMatch()
-                    bindMatch(match)
-                }
 
-            }
                 }
     private fun parseFile() {
         val inputStream = assets.open("worldcup.csv")
@@ -44,21 +36,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             DataManger.addMatch(currentMatch)
 
 
-            }
-        bindMatch(DataManger.getCurrentMatch())
         }
-    private fun bindMatch(match: Match){
-        binding?.apply {
-
-            tvYear.text = match.year.toString()
-            tvGoalsHomeTeam.text = match.homeTeamGoals.toString()
-            tvGoalseAwayTeam.text = match.awayTeamGoals.toString()
-            tvStadiumName.text = match.stadium
-            tvTextHomeName.text = match.homeTeamName
-            tvTextAwayName.text = match.awayTeamName
-
-        }
+    }
     }
 
 
-}
+
